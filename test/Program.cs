@@ -13,12 +13,12 @@ namespace TransactSqlScriptDomTest
 {
     class Program
     {
-        static string path = @"C:\Users\wilou\source\repos\SqlShareParsing\SqlShareParsing\ressources\queries.txt";
+        static string path = @"C:\Users\Yann\Desktop\queries.txt";
         static void Main(string[] args)
         {
 
             /*Lire fichier*/
-            File.Delete(@"C:\Users\wilou\source\repos\SqlShareParsing\SqlShareParsing\ressources\fichier_abstraction\test.xml");
+            File.Delete(@"C:\Users\Yann\Desktop\test.xml");
             string text = System.IO.File.ReadAllText(path);
             string[] queries = text.Split("________________________________________");
             /*Initialisation parser*/
@@ -26,16 +26,14 @@ namespace TransactSqlScriptDomTest
             /*Stocke les erreurs liés à la lecture du parser*/
             IList<ParseError> errors;
             /*Iniatilisation*/
-            string text2 = System.IO.File.ReadAllText(@"C:\Users\wilou\source\repos\SqlShareParsing\SqlShareParsing\ressources\view_script.txt");
+            string text2 = System.IO.File.ReadAllText(@"F:\storage\sqlshare_data_release1\sqlshare_data_release1\view_script.txt");
             Dictionary<String, List<String>> PhysicalTableList = new Dictionary<String, List<String>>();
             string[] views = Regex.Split(text2, "________________________________________");
-            String sDir = @"C:\Users\wilou\Documents\stage_workspace\sqlshare_data_release1\data";
+            String sDir = @"F:\storage\sqlshare_data_release1\sqlshare_data_release1\data";
             foreach (String view in views)
             {
-                Regex rx = new Regex(@"\(\[.*\]\)",
-    RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                Regex rx2 = new Regex(@"\[[^\[\]\(\)]*\]\.\[[^\[\]]*\]",
-              RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                Regex rx = new Regex(@"\(\[.*\]\)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                Regex rx2 = new Regex(@"\[[^\[\]\(\)]*\]\.\[[^\[\]]*\]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 // Find matches.
                 String matchText = "";
                 String matchText2 = "";
@@ -51,7 +49,7 @@ namespace TransactSqlScriptDomTest
                 }
                 if (!PhysicalTableList.ContainsKey(matchText2))
                 {
-                    using (StreamWriter sw = File.AppendText(@"C:\Users\wilou\source\repos\SqlShareParsing\SqlShareParsing\ressources\myf.txt"))
+                    using (StreamWriter sw = File.AppendText(@"F:\storage\sqlshare_data_release1\sqlshare_data_release1\myf.txt"))
                     {
 
                         sw.WriteLine(matchText2 + " " + matchText.Replace("(", "").Replace(")", ""));
@@ -113,9 +111,6 @@ namespace TransactSqlScriptDomTest
                 i++;
                 Console.WriteLine(i);
             }
-            /*Remise à zéro du string pour les clauses présentes dans le FROM, pour éviter les doublons avec le WhereClause*/
-            Console.WriteLine("FIN");
-            Console.ReadLine();
             myvisitor.Imprime();
 
         }
@@ -197,8 +192,7 @@ namespace TransactSqlScriptDomTest
             if (this.id_requete_courante != this.id_requete_precedante)
             {
                 projectionList = new List<String>();
-                Regex rxUser = new Regex(@"\[[^\[\]\(\)]*\]\.\[[^\[\]\(\)]*\]",
-RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                Regex rxUser = new Regex(@"\[[^\[\]\(\)]*\]\.\[[^\[\]\(\)]*\]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 // Find matches.
                 //Console.WriteLine(this.PhysicalTableList["[1002].[Tokyo_0_merged.csv]"]);
                 MatchCollection matchesUser = rxUser.Matches(this.requete);
@@ -250,8 +244,7 @@ RegexOptions.Compiled | RegexOptions.IgnoreCase);
                                             }
                                             else
                                             {
-                                                Regex rx = new Regex(@"\[.*\]\.\[.*\]",
-      RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                                                Regex rx = new Regex(@"\[.*\]\.\[.*\]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                                                 // Find matches.
                                                 //Console.WriteLine(this.PhysicalTableList["[1002].[Tokyo_0_merged.csv]"]);
                                                 String matchText = "";
@@ -282,7 +275,7 @@ RegexOptions.Compiled | RegexOptions.IgnoreCase);
                         {
                             if (GetNodeTokenText(selectElement).Contains(','))
                             {
-                                Console.WriteLine(GetNodeTokenText(selectElement));
+                                //  Console.WriteLine(GetNodeTokenText(selectElement));
                             }
                             projectionList.Add(GetNodeTokenText(selectElement));
                         }
@@ -308,7 +301,7 @@ RegexOptions.Compiled | RegexOptions.IgnoreCase);
                         //Faire l'intersection
                     }
                 }
-                using (StreamWriter sw = File.AppendText(@"C:\Users\wilou\source\repos\SqlShareParsing\SqlShareParsing\ressources\explo.txt"))
+                using (StreamWriter sw = File.AppendText(@"F:\storage\sqlshare_data_release1\sqlshare_data_release1\explo.txt"))
                 {
 
                     sw.WriteLine(this.id_requete_courante + ";" + user_courant + ";" + this.id_explo);
@@ -316,17 +309,17 @@ RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 previousProjectionList = projectionList;
                 user_precedant = user_courant;
 
-                using (StreamWriter sw = File.AppendText(@"C:\Users\wilou\source\repos\SqlShareParsing\SqlShareParsing\ressources\myfriend.txt"))
+                using (StreamWriter sw = File.AppendText(@"F:\storage\sqlshare_data_release1\sqlshare_data_release1\myfriend.txt"))
                 {
 
                     sw.Write("\n-------\nProjection pour la requête : " + this.requete);
                     //sw.Write("Projections pour la requête : " + text_requete_courante);
-                    Console.WriteLine(" Sont : ");
-                    sw.Write("\n Sont :");
+                    // Console.WriteLine(" Sont : ");
+                    //sw.Write("\n Sont :");
 
                     foreach (String projection in projectionList)
                     {
-                        Console.WriteLine(projection);
+                        //Console.WriteLine(projection);
                         sw.Write("\n" + projection);
 
                     }
@@ -395,13 +388,17 @@ RegexOptions.Compiled | RegexOptions.IgnoreCase);
             string study = GetNodeTokenText(node).ToLower();
             Regex regex = new Regex(@"[(/r)\s+]+on[^A-z].*((\s+)*(substring\([A-z.,'\s+\(\)0-9]*\))|(\s+)*[A-z.0-9]*[\s+]*=[\s+]*[A-z_.0-9]*|(\s+)*[A-z.0-9]*[\s+]=[\s+]*\([A-z\s+0-9.=!\(\]]*\)|(\s+)*[A-z.(\s+)]*=[\s+]*\([A-z\s+0-9.\[\]=!><\(\),']*\)|((\s+)*(and|or).*)*)?");
             Match match = regex.Match(study);
+            string study2 = GetNodeTokenText(node).ToLower();
             while (match.Success)
             {
                 string tmp = study.Substring(match.Index, match.Length);
                 if (tmp.Contains("or") || tmp.Contains("and"))
                     seperate(tmp);
                 else
-                    selection += "|" + tmp.Substring(tmp.IndexOf("on ") + 2, tmp.Length - tmp.IndexOf("on ") - 2);
+                {
+                    if (!selection.Contains(tmp.Substring(tmp.IndexOf("on ") + 2, tmp.Length - tmp.IndexOf("on ") - 2)))
+                        selection += "|" + tmp.Substring(tmp.IndexOf("on ") + 2, tmp.Length - tmp.IndexOf("on ") - 2);
+                }
                 study = study.Substring(0, match.Index) + " " + study.Substring(match.Index + match.Length, study.Length - (match.Index + match.Length));
                 match = regex.Match(study);
             }
@@ -507,29 +504,43 @@ RegexOptions.Compiled | RegexOptions.IgnoreCase);
             {
                 from = rgx.Replace(from, "");
             }
-            /*Regex pour récupérer les formes clauses*/
-            rgx = new Regex(@"(from[\s+]*(\[[A-z.0-9]*\].\[[A-z.0-9]*.*\][ ]*[A-z0-9]*)([\s+]*,[ ]*\[[0-9A-z.]*\].\[[A-z0-9.]*\][ ]*[A-z0-9]*)?|join[\s+]*\[[A-z .0-9]*\][ ]*[A-z0-9]*|join[\s+]+[\[\]A-z0-9.]*|from[/s+]*[A-z0-9]*\.[A-z0-9]*|from[\s+]*[A-z ]*[ ]*[A-z0-9]|from[\s+]\[[A-z.0-9 ]*\][ ]*[A-z0-9]*)");
+
+            rgx = new Regex(@"from[\s+]*\[[A-z0-9]*.\[[A-z0-9.]*\][ ]*[as ]?[A-z0-9]*([\s+]*,[\s+]*\[[A-z0-9]*.\[[A-z0-9.]*\][ ]*[as ]?[A-z0-9]*)+|from *[0-9.A-z]* *, *[0-9A-z]*");
             Match match = rgx.Match(from);
-            /*tant qu'il existe une forme clause à récupérer*/
-            while (match.Success)
+            if (match.Success)
             {
-                /*On l'extrait de from et on la stock dans tmp*/
-                string tmp = from.Substring(match.Index, match.Length);
-                /*on met à jour from sans tmp*/
-                from = from.Substring(0, match.Index) + " " + from.Substring(match.Index + match.Length, from.Length - match.Index - match.Length);
-                /*On regarde s'il existe une autre clause à récupérer*/
-                match = rgx.Match(from);
-                /*on supprime le from ou join*/
-                tmp = (new Regex(@"from |join ")).Replace(tmp, "");
-                /*s'il y a plusieurs tables ex [896].[lol], [896].[xD]*/
-                foreach (var seperate in tmp.Split(","))
+                string tmp = from.Substring(match.Index+4, match.Length-match.Index-4);
+                string[] seperate = tmp.Split(",");
+                foreach(var element in seperate)
                 {
-                    /*si la table n'existe pas déjà et s'il elle n'est pas inclus dans une sélection, ni dans un filtre with*/
-                    if (!tmp.Equals("") && !fromClause.Contains(seperate) && !selection.Contains(seperate) && !filtreWith)
-                        fromClause += " | " + seperate;
+                    rgx = new Regex(@"\][ ]*[as]?[ ]*[A-z0-9]*[\s+]*(,)*");
+                    tmp = rgx.Replace(element, "]");
+                    if (!tmp.Equals("") && !fromClause.Contains(tmp) && !selection.Contains(tmp) && !filtreWith)
+                        fromClause += " | " + tmp;
                 }
             }
-
+            else
+            {
+                /*Regex pour récupérer les formes clauses*/
+                rgx = new Regex(@"from[\s+]*\[[0-9.A-z]*\].[\s+]*\[[A-z0-9. ,']*\]|from[\s+]*[A-z.0-9]*+|join[\s+]+\[[A-z0-9]*\].\[[A-z0-9 .-]*\]|join[\s+]+[A-z.]*");
+                // Console.WriteLine(from);
+                match = rgx.Match(from);
+                /*tant qu'il existe une forme clause à récupérer*/
+                while (match.Success)
+                {
+                    /*On l'extrait de from et on la stock dans tmp*/
+                    string tmp = from.Substring(match.Index, match.Length);
+                    /*on met à jour from sans tmp*/
+                    from = from.Substring(0, match.Index) + " " + from.Substring(match.Index + match.Length, from.Length - match.Index - match.Length);
+                    /*On regarde s'il existe une autre clause à récupérer*/
+                    match = rgx.Match(from);
+                    /*on supprime le from ou join*/
+                    tmp = (new Regex(@"(from |join[\s+]*)")).Replace(tmp, "");
+                    /*s'il y a plusieurs tables ex [896].[lol], [896].[xD]*/
+                    if (!tmp.Equals("") && !fromClause.Contains(tmp) && !selection.Contains(tmp) && !filtreWith)
+                        fromClause += " | " + tmp;
+                }
+            }
         }
 
         /*Créer le fichier de sortie, et écrit le contenu de test*/
@@ -629,10 +640,11 @@ RegexOptions.Compiled | RegexOptions.IgnoreCase);
             aggregate = "";
             fromClause = "";
             filtreHaving = "";
+            filtreWith = false;
         }
         public void Imprime()
         {
-            doc.Save(@"C:\Users\wilou\source\repos\SqlShareParsing\SqlShareParsing\ressources\fichier_abstraction\test.xml");
+            doc.Save(@"C:\Users\Yann\Desktop\test.xml");
         }
     }
 }
