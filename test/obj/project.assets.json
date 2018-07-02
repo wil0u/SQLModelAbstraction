@@ -1229,11 +1229,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Yann\\Source\\Repos\\SQLModelAbstraction\\test\\test.csproj",
+      "projectUniqueName": "C:\\Users\\Yann\\source\\repos\\SQLModelAbstraction\\test\\test.csproj",
       "projectName": "test",
-      "projectPath": "C:\\Users\\Yann\\Source\\Repos\\SQLModelAbstraction\\test\\test.csproj",
+      "projectPath": "C:\\Users\\Yann\\source\\repos\\SQLModelAbstraction\\test\\test.csproj",
       "packagesPath": "C:\\Users\\Yann\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Yann\\Source\\Repos\\SQLModelAbstraction\\test\\obj\\",
+      "outputPath": "C:\\Users\\Yann\\source\\repos\\SQLModelAbstraction\\test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
